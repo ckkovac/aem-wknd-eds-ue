@@ -2,8 +2,8 @@
 Your project's description...
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.aem.page/
-- Live: https://main--{repo}--{owner}.aem.live/
+- Preview: https://main--aem-wknd-eds-ue--ckkovac.aem.page/
+- Live: https://main--aem-wknd-eds-ue--ckkovac.aem.live/
 
 ## Documentation
 
