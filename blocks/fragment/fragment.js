@@ -7,6 +7,7 @@
 // eslint-disable-next-line import/no-cycle
 import {
   decorateMain,
+  isAuthorEnvironment,
 } from '../../scripts/scripts.js';
 
 import {
@@ -22,7 +23,10 @@ export async function loadFragment(path) {
   if (path && path.startsWith('/')) {
     // eslint-disable-next-line no-param-reassign
     path = path.replace(/(\.plain)?\.html/, '');
-    const resp = await fetch(`${path}.plain.html`);
+    // In the author (Universal Editor) canvas the fragment lives on the
+    // authenticated AEM author origin; send cookies so the request is not
+    // treated as an unauthenticated cross-origin fetch.
+    const resp = await fetch(`${path}.plain.html`, isAuthorEnvironment() ? { credentials: 'include' } : {});
     if (resp.ok) {
       const main = document.createElement('main');
       main.innerHTML = await resp.text();

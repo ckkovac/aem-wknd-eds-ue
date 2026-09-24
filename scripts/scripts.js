@@ -47,6 +47,27 @@ export function moveInstrumentation(from, to) {
 }
 
 /**
+ * Returns the site root path for the current environment.
+ * In the Universal Editor author canvas, pages are served from the AEM author
+ * instance under /content/<site>/..., so root-relative assets such as the nav
+ * and footer live under that root. On aem.page / aem.live (and the local dev
+ * proxy) the site root is '/' and this returns an empty string.
+ * @returns {string} the site root path, e.g. '/content/aem-wknd-eds-ue', or ''
+ */
+export function getRootPath() {
+  const match = window.location.pathname.match(/^\/content\/[^/]+/);
+  return match ? match[0] : '';
+}
+
+/**
+ * True when running inside the AEM author (Universal Editor) canvas.
+ * @returns {boolean}
+ */
+export function isAuthorEnvironment() {
+  return getRootPath() !== '';
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
